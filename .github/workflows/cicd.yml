@@ -12,24 +12,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      # Install Rust
-      - name: Install Rust
-        uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          toolchain: stable
-          override: true
-
-      # Install ruff using git
-      - name: Install ruff
-        run: |
-          git clone https://github.com/charliermarsh/ruff.git
-          cd ruff
-          cargo install --path .
-
       # Install Python packages
       - name: install packages
         run: make install
+
+      # Install ruff
+      - name: Install ruff
+        run: pip install ruff
 
       # Lint with ruff
       - name: lint
