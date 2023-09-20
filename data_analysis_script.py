@@ -1,37 +1,50 @@
 import lib
 import pandas as pd
 
-# Load the data
 data = lib.load_csv("bestsellers with categories.csv")
 
-# 1. Summary for 2009-2019
-rating_per_year = data.groupby('Year')['User Rating'].agg(['mean', 'median'])
-fiction_non_fiction_count = data.groupby(['Year', 'Genre']).size().unstack(fill_value=0)
-books_above_47 = data[data['User Rating'] > 4.7].groupby(['Year', 'Genre']).size().unstack(fill_value=0)
-print("===== Rating Summary =====")
-print(rating_per_year)
-print("\n===== Fiction & Non-Fiction Book Counts =====")
-print(fiction_non_fiction_count)
-print("\n===== Book Counts with Rating above 4.7 =====")
-print(books_above_47)
+print("===== Analysis Report =====\n")
 
-# 2. Books with highest and lowest rating across the years
-highest_rated_books = data[data['User Rating'] == data['User Rating'].max()]
-lowest_rated_books = data[data['User Rating'] == data['User Rating'].min()]
-print("\n===== Highest Rated Books =====")
-print(highest_rated_books[['Name', 'Author', 'Genre', 'User Rating']])
-print("\n===== Lowest Rated Books =====")
-print(lowest_rated_books[['Name', 'Author', 'Genre', 'User Rating']])
+# Number of books each year with reviews over 10,000
+high_reviewed_books = data[data['Reviews'] > 10000]
+books_count_per_year = high_reviewed_books.groupby('Year').size()
+print("Number of books with reviews over 10,000 for each year:")
+print(books_count_per_year)
+print("\n")
 
-# 3. Correlation: Rating vs. Reviews and Rating vs. Price
-corr_rating_reviews = lib.get_correlation(data, 'User Rating', 'Reviews')
-corr_rating_price = lib.get_correlation(data, 'User Rating', 'Price')
-print("\n===== Correlation: Rating vs. Reviews =====")
-print(f"Correlation coefficient: {corr_rating_reviews}")
-print("\n===== Correlation: Rating vs. Price =====")
-print(f"Correlation coefficient: {corr_rating_price}")
+# Books with highest and lowest reviews over the years
+most_reviewed_books = data[data['Reviews'] == data['Reviews'].max()]
+least_reviewed_books = data[data['Reviews'] == data['Reviews'].min()]
 
-# Visualizations
-lib.visualize_correlation(data, 'User Rating', 'Reviews', 'Rating vs. Reviews', "rating_vs_reviews.png")
-lib.visualize_correlation(data, 'User Rating', 'Price', 'Rating vs. Price', "rating_vs_price.png")
-lib.visualize_line_chart(books_above_47.reset_index(), 'Year', 'Fiction', 'Non Fiction', 'Books with Rating above 4.7 over the years', "books_above_47_over_years.png")
+print("Books with the most reviews over the years:")
+print(most_reviewed_books[['Name', 'Author', 'Reviews']])
+print("\nBooks with the least reviews over the years:")
+print(least_reviewed_books[['Name', 'Author', 'Reviews']])
+print("\n")
+
+# Analysis of books by J.K. Rowling
+jk_rowling_books = data[data['Author'].str.contains('J.K. Rowling')]
+average_rating_rowling = jk_rowling_books['User Rating'].mean()
+print(f"Average rating of J.K. Rowling books: {average_rating_rowling:.2f}")
+print(f"Total number of J.K. Rowling books: {jk_rowling_books.shape[0]}")
+print("\n")
+
+# Correlation between Price and Reviews
+corr_price_reviews = lib.get_correlation(data, 'Price', 'Reviews')
+print(f"Correlation between Price and Reviews: {corr_price_reviews:.2f}\n")
+
+# Analysis of average book price change over the years
+average_price_per_year = data.groupby('Year')['Price'].mean()
+print("Average book price over the years:")
+print(average_price_per_year)
+print("\n")
+
+# Comparison of average rating between J.K. Rowling books and other books
+other_books = data[~data['Author'].str.contains('J.K. Rowling')]
+average_rating_others = other_books['User Rating'].mean()
+print(f"Average rating of other books: {average_rating_others:.2f}\n")
+
+# Visualization of the correlation
+lib.visualize_correlation(data, 'Price', 'Reviews', 'Price vs. Reviews', "price_vs_reviews.png")
+
+print("Visualization saved as price_vs_reviews.png")
