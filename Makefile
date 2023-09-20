@@ -12,7 +12,7 @@ format:
 movefile:
 	mkdir -p excluded_files
 	mv ./test_lib.py excluded_files/
-	mv ./test_script.py excluded_files/
+	mv ./test_data_analysis.py excluded_files/
 
 restorefile:
 	mv excluded_files/* .
