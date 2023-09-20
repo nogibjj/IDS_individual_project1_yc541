@@ -21,3 +21,26 @@ jobs:
         run: make format
       - name: deploy
         run: make deploy
+        
+        # Add this step to install Rust
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+
+      # Add this step to install ruff
+      - name: Install ruff
+        run: cargo install ruff
+
+      - name: install packages
+        run: make install
+      - name: lint
+        run: make lint
+      - name: test
+        run: make test
+      - name: format
+        run: make format
+      - name: deploy
+        run: make deploy
