@@ -15,6 +15,7 @@ def visualize_correlation(df, col1, col2, title, save_path):
     plt.title(title)
     plt.grid(True)
     plt.savefig(save_path, format='png')
+    plt.show()
     plt.close()
 
 def visualize_line_chart(df, x_col, y_col1, y_col2, title, save_path):
@@ -27,4 +28,5 @@ def visualize_line_chart(df, x_col, y_col1, y_col2, title, save_path):
     plt.legend()
     plt.grid(True)
     plt.savefig(save_path, format='png')
+    plt.show()
     plt.close()
