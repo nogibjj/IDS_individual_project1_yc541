@@ -11,18 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: install packages
-        run: make install
-      - name: lint
-        run: make lint
-      - name: test
-        run: make test
-      - name: format
-        run: make format
-      - name: deploy
-        run: make deploy
-        
-        # Add this step to install Rust
+
+      # Install Rust
       - name: Install Rust
         uses: actions-rs/toolchain@v1
         with:
@@ -30,17 +20,26 @@ jobs:
           toolchain: stable
           override: true
 
-      # Add this step to install ruff
+      # Install ruff
       - name: Install ruff
         run: cargo install ruff
 
+      # Install Python packages
       - name: install packages
         run: make install
+
+      # Lint with ruff
       - name: lint
         run: make lint
+
+      # Run tests
       - name: test
         run: make test
+
+      # Format with black
       - name: format
         run: make format
+
+      # Deploy (if you have a deploy command in your Makefile)
       - name: deploy
         run: make deploy
