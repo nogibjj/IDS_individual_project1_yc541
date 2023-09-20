@@ -4,7 +4,7 @@ install:
 
 test:
 	python -m pytest -vv --cov=lib test_*.py &&\
-	python -m pytest --nbval analysis.ipynb
+	python -m pytest --nbval data_analysis.ipynb
 
 format:	
 	black *.py 
