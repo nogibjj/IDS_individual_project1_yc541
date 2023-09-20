@@ -1,5 +1,6 @@
-name: CI
-on:
+name: Lint and Test
+
+on: 
   push:
     branches: [ "main" ]
   pull_request:
@@ -9,29 +10,26 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
 
-      # Install Python packages
-      - name: install packages
+      - name: Set up Python 3.11.5
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.11.5
+
+      - name: Install dependencies
         run: make install
 
-      # Install ruff
-      - name: Install ruff
-        run: pip install ruff
-
-      # Lint with ruff
-      - name: lint
+      - name: Lint with Ruff
         run: make lint
 
-      # Run tests
-      - name: test
+      - name: Test
         run: make test
 
-      # Format with black
-      - name: format
+      - name: Format with Black
         run: make format
 
-      # Deploy (if you have a deploy command in your Makefile)
-      - name: deploy
+      - name: Deploy
         run: make deploy
