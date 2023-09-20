@@ -9,6 +9,8 @@ format:
 	black *.py
 
 lint:
-	ruff
+	make movefile
+	ruff check ./*.py
+	make restorefile 
 
 all: install lint test format
