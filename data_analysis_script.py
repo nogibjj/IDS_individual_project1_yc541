@@ -1,5 +1,4 @@
 import lib
-import pandas as pd
 
 data = lib.load_csv("bestsellers with categories.csv")
 
@@ -45,6 +44,6 @@ average_rating_others = other_books['User Rating'].mean()
 print(f"Average rating of other books: {average_rating_others:.2f}\n")
 
 # Visualization of the correlation
-lib.visualize_correlation(data, 'Price', 'Reviews', 'Price vs. Reviews', "price_vs_reviews.png")
+lib.visualize_correlation(data,'Price','Reviews','Price vs. Review',"price-reviews.png")
 
 print("Visualization saved as price_vs_reviews.png")
