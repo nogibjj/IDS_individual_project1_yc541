@@ -1,18 +1,14 @@
 install:
-	pip install --upgrade pip &&\\
-		pip install -r requirements.txt
+	pip install --upgrade pip &&\
+	pip install -r requirements.txt
 
 test:
-	pytest --nbval notebook_name.ipynb
-	python -m pytest -vv --cov=lib data_analysis1.py data_analysis2.py
+	python -m pytest -vv test_*.py
 
-format:	
-	black *.py 
+format:
+	black *.py
 
 lint:
-	pylint --disable=R,C --ignore-patterns=test_.*?py *.py lib/*.py
+	ruff
 
-deploy:
-	# deploy goes here
-
-all: install lint test format deploy
+all: install lint test format
