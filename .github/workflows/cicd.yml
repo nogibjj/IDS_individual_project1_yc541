@@ -30,6 +30,3 @@ jobs:
 
       - name: Format with Black
         run: make format
-
-      - name: Deploy
-        run: make deploy
