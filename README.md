@@ -55,5 +55,8 @@ Below are the plots for data visulization in this project.
 ![Alt text](rating_vs_price.png)
 ![Alt text](rating_vs_reviews.png)
 
+## 📊 Vedio Demo
+https://www.loom.com/share/a9544e3a54094e7b897089655ff8f4d8?sid=eb2120a2-01ae-494f-98d4-5963b7d4722e
+
 
 
